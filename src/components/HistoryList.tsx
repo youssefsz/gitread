@@ -13,6 +13,8 @@ export default function HistoryList({ onLoadHistoryItem }: HistoryListProps) {
   const [historyItems, setHistoryItems] = useState<HistoryItem[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [showAll, setShowAll] = useState(false);
+  const [filterType, setFilterType] = useState<string>('all');
+  const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest');
 
   useEffect(() => {
     loadHistory();
@@ -22,11 +24,32 @@ export default function HistoryList({ onLoadHistoryItem }: HistoryListProps) {
     const history = HistoryService.getHistory();
     setHistoryItems(history);
   };
-
-  const filteredItems = historyItems.filter(item =>
-    item.originalFileName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    item.readmeContent.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  
+  // Apply filters and search
+  const filteredItems = historyItems
+    .filter(item => {
+      // Text search filter
+      const matchesSearch = 
+        item.originalFileName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.readmeContent.toLowerCase().includes(searchTerm.toLowerCase());
+      
+      // File type filter
+      const matchesType = 
+        filterType === 'all' || 
+        (filterType === 'pdf' && item.fileType.includes('pdf')) ||
+        (filterType === 'doc' && (item.fileType.includes('doc') || item.fileType.includes('word'))) ||
+        (filterType === 'other' && !item.fileType.includes('pdf') && !item.fileType.includes('doc') && !item.fileType.includes('word'));
+      
+      return matchesSearch && matchesType;
+    })
+    // Apply sorting
+    .sort((a, b) => {
+      if (sortOrder === 'newest') {
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+      } else {
+        return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+      }
+    });
 
   const displayedItems = showAll ? filteredItems : filteredItems.slice(0, 5);
 
@@ -68,9 +91,9 @@ export default function HistoryList({ onLoadHistoryItem }: HistoryListProps) {
         )}
       </div>
 
-      {/* Search */}
+      {/* Search and Filters */}
       {historyItems.length > 3 && (
-        <div className="mb-4">
+        <div className="mb-4 space-y-3">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
             <input
@@ -80,6 +103,34 @@ export default function HistoryList({ onLoadHistoryItem }: HistoryListProps) {
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-10 pr-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-white text-sm"
             />
+          </div>
+          
+          <div className="flex flex-wrap gap-2">
+            {/* File Type Filter */}
+            <div className="flex-1 min-w-[140px]">
+              <select
+                value={filterType}
+                onChange={(e) => setFilterType(e.target.value)}
+                className="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-white text-sm"
+              >
+                <option value="all">All File Types</option>
+                <option value="pdf">PDF Files</option>
+                <option value="doc">Word Documents</option>
+                <option value="other">Other Types</option>
+              </select>
+            </div>
+            
+            {/* Sort Order */}
+            <div className="flex-1 min-w-[140px]">
+              <select
+                value={sortOrder}
+                onChange={(e) => setSortOrder(e.target.value as 'newest' | 'oldest')}
+                className="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-white text-sm"
+              >
+                <option value="newest">Newest First</option>
+                <option value="oldest">Oldest First</option>
+              </select>
+            </div>
           </div>
         </div>
       )}

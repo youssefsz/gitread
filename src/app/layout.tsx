@@ -26,12 +26,13 @@ export const metadata: Metadata = {
     default: "GitRead - AI-Powered CV to README Generator | Transform Your Resume",
     template: "%s | GitRead - Professional README Generator"
   },
-  description: "Transform your CV into a stunning GitHub README with AI in seconds. Upload your PDF resume and get a professional, customizable markdown README file. Perfect for developers, designers, and professionals.",
+  description: "Transform your CV into a stunning GitHub README with AI in seconds. Upload your PDF resume at /upload and get a professional, customizable markdown README file. Perfect for developers, designers, and professionals.",
   keywords: [
     "CV to README", "GitHub README generator", "AI resume converter", "PDF to markdown", 
     "professional portfolio", "developer tools", "resume to README", "GitHub profile", 
     "markdown generator", "CV parser", "AI-powered tools", "developer portfolio", 
-    "README template", "GitHub optimization", "career tools", "tech resume"
+    "README template", "GitHub optimization", "career tools", "tech resume", 
+    "upload CV", "CV upload tool", "drag and drop resume", "instant README creation"
   ],
   authors: [{ name: "GitRead", url: "https://gitread.youssef.tn" }],
   creator: "GitRead",
@@ -56,7 +57,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "./",
     title: "GitRead - AI-Powered CV to README Generator",
-    description: "Transform your CV into a stunning GitHub README with AI in seconds. Upload your PDF resume and get a professional, customizable markdown README file instantly.",
+    description: "Transform your CV into a stunning GitHub README with AI in seconds. Upload your PDF resume at /upload and get a professional, customizable markdown README file instantly.",
     siteName: "GitRead",
     images: [
       {
@@ -73,7 +74,7 @@ export const metadata: Metadata = {
     site: '@gitread',
     creator: '@gitread',
     title: 'GitRead - AI-Powered CV to README Generator',
-    description: 'Transform your CV into a stunning GitHub README with AI in seconds. Perfect for developers and professionals.',
+    description: 'Transform your CV into a stunning GitHub README with AI in seconds. Upload at /upload for instant results. Perfect for developers and professionals.',
     images: {
       url: '/og-image.png',
       alt: 'GitRead - AI-Powered CV to README Generator',

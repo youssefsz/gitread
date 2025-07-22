@@ -15,7 +15,7 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-              Transform your CV into a beautiful GitHub README with AI. Upload your PDF CV and get a professional, customizable README file instantly.
+              Transform your CV into a stunning GitHub README with AI in seconds. Upload your PDF resume and get a professional, customizable markdown README file instantly.
             </p>
           </div>
           
@@ -25,13 +25,23 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm">
+                <Link href="/" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors duration-200">
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm">
+                <Link href="/upload" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors duration-200">
+                  Upload CV
+                </Link>
+              </li>
+              <li>
+                <Link href="/about" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors duration-200">
                   About
+                </Link>
+              </li>
+              <li>
+                <Link href="/guide" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors duration-200">
+                  Guide
                 </Link>
               </li>
             </ul>
@@ -43,12 +53,12 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/privacy" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm">
+                <Link href="/privacy" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors duration-200">
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm">
+                <Link href="/terms" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors duration-200">
                   Terms of Service
                 </Link>
               </li>
@@ -56,9 +66,19 @@ export default function Footer() {
           </div>
         </div>
         
-        <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700 text-center text-gray-600 dark:text-gray-400">
-          <p className="mb-2">Built with ❤️ using Next.js, Tailwind CSS, and AI</p>
-          <p className="text-sm">© {new Date().getFullYear()} GitRead. All rights reserved.</p>
+        <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
+          <div className="flex flex-col md:flex-row justify-between items-center text-gray-600 dark:text-gray-400">
+            <p className="mb-2 md:mb-0 text-sm">
+              Built with ❤️ using Next.js, Tailwind CSS, and AI
+            </p>
+            <div className="flex items-center space-x-4 text-sm">
+              <p>© {new Date().getFullYear()} GitRead. All rights reserved.</p>
+              <div className="flex items-center space-x-2">
+                <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                <span className="text-xs text-green-600 dark:text-green-400">Online</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

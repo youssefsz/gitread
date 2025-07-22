@@ -9,7 +9,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: '*',
-        allow: '/',
+        allow: ['/', '/guide', '/about', '/privacy', '/terms', '/upload'],
         disallow: [
           '/api/*',
           '/uploads/*',
@@ -22,7 +22,7 @@ export default function robots(): MetadataRoute.Robots {
       },
       {
         userAgent: 'Googlebot',
-        allow: '/',
+        allow: ['/', '/guide', '/about', '/privacy', '/terms', '/upload'],
         disallow: [
           '/api/*',
           '/uploads/*',
@@ -31,7 +31,7 @@ export default function robots(): MetadataRoute.Robots {
       },
       {
         userAgent: 'Bingbot',
-        allow: '/',
+        allow: ['/', '/guide', '/about', '/privacy', '/terms', '/upload'],
         disallow: [
           '/api/*',
           '/uploads/*',
