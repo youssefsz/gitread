@@ -15,7 +15,7 @@ GitRead now implements state-of-the-art SEO optimization including:
 ## 📊 Key Improvements
 
 ### 1. Open Graph (OG) Image
-- **File**: `/public/og-image.svg`
+- **File**: `/public/og-image.png`
 - **Dimensions**: 1200x630px (optimal for social media)
 - **Format**: SVG (scalable, lightweight)
 - **Features**: Professional design with GitRead branding, feature highlights, and clear value proposition
@@ -105,7 +105,7 @@ GitRead now implements state-of-the-art SEO optimization including:
 ```typescript
 // Enhanced metadata with 2025 best practices
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://gitread.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://gitread.youssef.tn'),
   title: {
     default: "GitRead - AI-Powered CV to README Generator | Transform Your Resume",
     template: "%s | GitRead - Professional README Generator"

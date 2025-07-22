@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/og-image.svg',
+        url: '/og-image.png',
         width: 1200,
         height: 630,
         alt: 'GitRead CV to README Generator - Transform your resume into a professional GitHub README',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'GitRead - Transform Your CV into Professional README',
     description: 'Upload your CV and let AI create a comprehensive, professional GitHub README file instantly.',
-    images: ['/og-image.svg'],
+    images: ['/og-image.png'],
   },
   alternates: {
     canonical: '/home',

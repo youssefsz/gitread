@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/og-image.svg',
+        url: '/og-image.png',
         width: 1200,
         height: 630,
         alt: 'GitRead Privacy Policy - Your data security is our priority',
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Privacy Policy - GitRead',
     description: 'Learn how GitRead protects your privacy and handles your data securely.',
-    images: ['/og-image.svg'],
+    images: ['/og-image.png'],
   },
   alternates: {
     canonical: '/privacy',

@@ -21,7 +21,7 @@ export const viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://gitread.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://gitread.youssef.tn'),
   title: {
     default: "GitRead - AI-Powered CV to README Generator | Transform Your Resume",
     template: "%s | GitRead - Professional README Generator"
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     "markdown generator", "CV parser", "AI-powered tools", "developer portfolio", 
     "README template", "GitHub optimization", "career tools", "tech resume"
   ],
-  authors: [{ name: "GitRead", url: "https://gitread.com" }],
+  authors: [{ name: "GitRead", url: "https://gitread.youssef.tn" }],
   creator: "GitRead",
   publisher: "GitRead",
   category: "Technology",
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     siteName: "GitRead",
     images: [
       {
-        url: "/og-image.svg",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "GitRead - AI-Powered CV to README Generator - Transform your resume into a professional GitHub README",
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     title: 'GitRead - AI-Powered CV to README Generator',
     description: 'Transform your CV into a stunning GitHub README with AI in seconds. Perfect for developers and professionals.',
     images: {
-      url: '/og-image.svg',
+      url: '/og-image.png',
       alt: 'GitRead - AI-Powered CV to README Generator',
     },
   },
@@ -122,7 +122,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   // Enhanced structured data for SEO (2025 best practices)
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://gitread.com";
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://gitread.youssef.tn";
   
   const organizationJsonLd = {
     "@context": "https://schema.org",
@@ -139,7 +139,7 @@ export default function RootLayout({
     },
     "image": {
       "@type": "ImageObject",
-      "url": `${baseUrl}/og-image.svg`,
+      "url": `${baseUrl}/og-image.png`,
       "width": 1200,
       "height": 630
     },
@@ -209,7 +209,7 @@ export default function RootLayout({
     ],
     "screenshot": {
       "@type": "ImageObject",
-      "url": `${baseUrl}/og-image.svg`
+      "url": `${baseUrl}/og-image.png`
     }
   };
 
