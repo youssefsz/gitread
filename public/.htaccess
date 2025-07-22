@@ -1,10 +1,27 @@
 # Enable URL rewriting
 RewriteEngine On
 
-# Handle client-side routing
+# Define valid routes
+RewriteRule ^(|about|guide|privacy|terms|upload)/?$ - [L,S=1]
+
+# Handle invalid routes - show 404 page
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /404.html [L,R=404]
+
+# Handle client-side routing for valid routes
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ /index.html [L,QSA]
+
+# Custom error pages
+ErrorDocument 404 /404.html
+
+# Redirect disallowed paths to 404 page
+RewriteRule ^uploads(/.*)?$ /404.html [L,R=404]
+RewriteRule ^api(/.*)?$ /404.html [L,R=404]
+RewriteRule ^admin(/.*)?$ /404.html [L,R=404]
+RewriteRule ^tmp(/.*)?$ /404.html [L,R=404]
 
 # Set security headers
 <IfModule mod_headers.c>
