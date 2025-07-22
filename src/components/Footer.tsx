@@ -34,11 +34,6 @@ export default function Footer() {
                   About
                 </Link>
               </li>
-              <li>
-                <Link href="/contact" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm">
-                  Contact
-                </Link>
-              </li>
             </ul>
           </div>
           
