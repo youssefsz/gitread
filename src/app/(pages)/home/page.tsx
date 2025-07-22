@@ -1,12 +1,15 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Github, Sparkles, ArrowRight } from 'lucide-react';
+import { Github, Sparkles, ArrowRight, History as HistoryIcon } from 'lucide-react';
 import FileUpload from '@/components/FileUpload';
 import MarkdownEditor from '@/components/MarkdownEditor';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import History from '@/components/History';
+import HistoryList from '@/components/HistoryList';
 import { PDFParser } from '@/lib/pdf-parser';
 import { AIService } from '@/lib/ai-service';
+import { HistoryService, HistoryItem } from '@/lib/history-service';
 
 type Step = 'upload' | 'processing' | 'editing';
 
@@ -17,6 +20,8 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [processingPercentage, setProcessingPercentage] = useState(0);
+  const [showHistory, setShowHistory] = useState(false);
+  const [currentHistoryId, setCurrentHistoryId] = useState<string | null>(null);
 
   // Load saved content from localStorage on component mount
   useEffect(() => {
@@ -93,6 +98,16 @@ export default function Home() {
         localStorage.setItem('readmeContent', readmeContent);
         localStorage.setItem('currentStep', 'editing');
         
+        // Save to history
+        const historyItem = HistoryService.saveHistoryItem({
+          fileName: file.name,
+          originalFileName: file.name,
+          readmeContent: readmeContent,
+          fileSize: file.size,
+          fileType: file.type
+        });
+        setCurrentHistoryId(historyItem.id);
+        
         setCurrentStep('editing');
         setIsLoading(false);
       }, 2000); // Increased from 800ms to 2000ms to allow the success animation to complete
@@ -127,10 +142,30 @@ export default function Home() {
     setCurrentStep('upload');
     setError(null);
     setProcessingPercentage(0);
+    setCurrentHistoryId(null);
     
     // Clear localStorage
     localStorage.removeItem('readmeContent');
     localStorage.removeItem('currentStep');
+  };
+
+  const handleLoadHistoryItem = (item: HistoryItem) => {
+    setReadmeContent(item.readmeContent);
+    setCurrentStep('editing');
+    setCurrentHistoryId(item.id);
+    
+    // Save to localStorage
+    localStorage.setItem('readmeContent', item.readmeContent);
+    localStorage.setItem('currentStep', 'editing');
+  };
+
+  const handleContentChange = (content: string) => {
+    setReadmeContent(content);
+    
+    // Update history if we're editing an existing item
+    if (currentHistoryId) {
+      HistoryService.updateHistoryItem(currentHistoryId, { readmeContent: content });
+    }
   };
 
   return (
@@ -184,13 +219,18 @@ export default function Home() {
 
         {/* File Upload */}
         {currentStep === 'upload' && (
-          <div className="max-w-2xl mx-auto">
-            <FileUpload
-              onFileSelect={handleFileSelect}
-              onFileRemove={handleFileRemove}
-              selectedFile={selectedFile}
-              isLoading={isLoading}
-            />
+          <div className="max-w-4xl mx-auto">
+            <div className="max-w-2xl mx-auto mb-8">
+              <FileUpload
+                onFileSelect={handleFileSelect}
+                onFileRemove={handleFileRemove}
+                selectedFile={selectedFile}
+                isLoading={isLoading}
+              />
+            </div>
+            
+            {/* History List */}
+            <HistoryList onLoadHistoryItem={handleLoadHistoryItem} />
           </div>
         )}
 
@@ -230,23 +270,40 @@ export default function Home() {
                   Review, edit, and download your personalized README file.
                 </p>
               </div>
-              <button
-                onClick={handleStartOver}
-                className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-lg font-medium transition-colors cursor-pointer flex items-center space-x-2 border border-gray-300 dark:border-gray-600"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                </svg>
-                <span>Start Over</span>
-              </button>
+              <div className="flex items-center space-x-3">
+                <button
+                  onClick={() => setShowHistory(true)}
+                  className="px-4 py-2 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-800 rounded-lg font-medium transition-colors cursor-pointer flex items-center space-x-2 border border-blue-300 dark:border-blue-600"
+                >
+                  <HistoryIcon className="w-4 h-4" />
+                  <span>History</span>
+                </button>
+                <button
+                  onClick={handleStartOver}
+                  className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-lg font-medium transition-colors cursor-pointer flex items-center space-x-2 border border-gray-300 dark:border-gray-600"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  </svg>
+                  <span>Start Over</span>
+                </button>
+              </div>
             </div>
             
             <MarkdownEditor
               content={readmeContent}
-              onChange={setReadmeContent}
+              onChange={handleContentChange}
               onDownload={handleDownload}
             />
           </div>
+        )}
+
+        {/* History Modal */}
+        {showHistory && (
+          <History
+            onLoadHistoryItem={handleLoadHistoryItem}
+            onClose={() => setShowHistory(false)}
+          />
         )}
       </div>
     </div>
