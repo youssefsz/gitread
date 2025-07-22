@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PDFParser } from '@/lib/pdf-parser';
+import { FileStorage } from '@/lib/file-storage';
 import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf.mjs';
 import path from 'path';
 
@@ -29,6 +30,14 @@ export async function POST(request: NextRequest) {
     if (file.type === 'text/plain') {
       const text = await file.text();
       return NextResponse.json({ text });
+    }
+    
+    // Save the file to the uploads directory
+    try {
+      await FileStorage.saveFile(file);
+    } catch (saveError) {
+      console.error('Error saving file:', saveError);
+      // Continue with processing even if saving fails
     }
     
     // Handle PDF files with PDF.js

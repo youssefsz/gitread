@@ -44,9 +44,45 @@ GitRead is a modern, AI-powered web application that converts your CV/Resume PDF
    
    Add your OpenRouter API key to `.env.local`:
    ```env
-   OPENROUTER_API_KEY=your_openrouter_api_key_here
+   NEXT_PUBLIC_OPENROUTER_API_URL=https://openrouter.ai/api/v1/chat/completions
+   NEXT_PUBLIC_OPENROUTER_MODEL=deepseek/deepseek-chat-v3-0324:free
+   NEXT_OPENROUTER_API_KEY=your_openrouter_api_key_here
    NEXT_PUBLIC_APP_URL=http://localhost:3000
    ```
+
+## 🌐 Deployment to Standard Hosting (like OVH.com)
+
+GitRead is configured for static exports, making it compatible with standard web hosting providers like OVH.com that don't support Node.js server environments.
+
+### Generating Static Files
+
+1. **Build the static export**
+   ```bash
+   npm run export
+   ```
+
+2. **Locate the exported files**
+   
+   The static files will be generated in the `out` directory at the root of your project.
+
+### Uploading to OVH or Similar Hosting
+
+1. **Access your hosting control panel** (cPanel, Plesk, OVH Manager, etc.)
+
+2. **Upload the contents of the `out` directory** to your web hosting using:
+   - FTP client (like FileZilla)
+   - Web-based file manager in your hosting control panel
+   - SSH/SFTP if available
+
+3. **Important hosting configuration**:
+   - Ensure your hosting is configured to serve `index.html` files when a directory is accessed
+   - If you're not hosting at the root domain (e.g., example.com/gitread/), uncomment and update the `basePath` in `next.config.ts`
+
+### Troubleshooting Common Hosting Issues
+
+- **404 errors**: Make sure your hosting provider is configured to handle client-side routing. You may need to add URL rewrite rules or use the `.htaccess` file included in the export.
+- **API calls failing**: Remember that with static export, all API routes need to be replaced with external API endpoints as server-side functions won't work.
+- **Environment variables**: Update your environment variables in the hosting provider's configuration if needed.
 
 3. **Start the development server**
    ```bash

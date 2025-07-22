@@ -17,36 +17,47 @@ export default function FileUpload({ onFileSelect, onFileRemove, selectedFile, i
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploadComplete, setUploadComplete] = useState(false);
 
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    if (acceptedFiles.length > 0) {
-      setUploadProgress(0);
-      setUploadComplete(false);
+  // Store the last dropped file for handling
+  const [lastDroppedFile, setLastDroppedFile] = useState<File | null>(null);
+
+  const handleUpload = (file: File) => {
+    setUploadProgress(0);
+    setUploadComplete(false);
+    
+    // Simulate upload progress
+    const simulateUpload = () => {
+      setUploadProgress(prev => {
+        if (prev < 100) {
+          const increment = Math.random() * 10;
+          const newProgress = Math.min(prev + increment, 99);
+          return newProgress;
+        }
+        return prev;
+      });
+    };
+    
+    const uploadInterval = setInterval(simulateUpload, 150);
+    
+    // After a delay, complete the upload and call the onFileSelect
+    setTimeout(() => {
+      clearInterval(uploadInterval);
+      setUploadProgress(100);
+      setUploadComplete(true);
       
-      // Simulate upload progress
-      const simulateUpload = () => {
-        setUploadProgress(prev => {
-          if (prev < 100) {
-            const increment = Math.random() * 10;
-            const newProgress = Math.min(prev + increment, 99);
-            return newProgress;
-          }
-          return prev;
-        });
-      };
-      
-      const uploadInterval = setInterval(simulateUpload, 150);
-      
-      // After a delay, complete the upload and call the onFileSelect
+      // Ensure the complete animation is visible for a moment before proceeding
       setTimeout(() => {
-        clearInterval(uploadInterval);
-        setUploadProgress(100);
-        setUploadComplete(true);
-        
-        // Ensure the complete animation is visible for a moment before proceeding
-        setTimeout(() => {
-          onFileSelect(acceptedFiles[0]);
-        }, 1000); // Increased delay to ensure animation completes
-      }, 2500); // Longer upload simulation time to ensure progress animation is visible
+        onFileSelect(file);
+      }, 1000); // Increased delay to ensure animation completes
+    }, 2500); // Longer upload simulation time to ensure progress animation is visible
+  };
+
+  const onDrop = useCallback(async (acceptedFiles: File[]) => {
+    if (acceptedFiles.length > 0) {
+      const file = acceptedFiles[0];
+      setLastDroppedFile(file);
+      
+      // Always upload the file, overriding if it exists
+      handleUpload(file);
     }
     setDragActive(false);
   }, [onFileSelect]);
@@ -66,6 +77,7 @@ export default function FileUpload({ onFileSelect, onFileRemove, selectedFile, i
     if (!selectedFile) {
       setUploadProgress(0);
       setUploadComplete(false);
+      setLastDroppedFile(null);
     }
   }, [selectedFile]);
 

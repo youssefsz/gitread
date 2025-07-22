@@ -7,14 +7,14 @@ interface AIResponse {
 }
 
 export class AIService {
-  private static readonly API_URL = 'https://openrouter.ai/api/v1/chat/completions';
-  private static readonly MODEL = 'qwen/qwen3-235b-a22b-07-25:free';
+  private static readonly API_URL = process.env.NEXT_PUBLIC_OPENROUTER_API_URL || 'https://openrouter.ai/api/v1/chat/completions';
+  private static readonly MODEL = process.env.NEXT_PUBLIC_OPENROUTER_MODEL || 'deepseek/deepseek-chat-v3-0324:free';
 
   static async generateReadme(cvText: string): Promise<string> {
-    const apiKey = process.env.OPENROUTER_API_KEY;
+    const apiKey = process.env.NEXT_PUBLIC_OPENROUTER_API_KEY;
     
     if (!apiKey) {
-      throw new Error('OpenRouter API key not configured');
+      throw new Error('OpenRouter API key not configured. Please set NEXT_PUBLIC_OPENROUTER_API_KEY in your environment variables.');
     }
 
     const prompt = `Based on the following CV/Resume content, generate a comprehensive GitHub README in Markdown format that is professional, modern, and visually appealing. 
