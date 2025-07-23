@@ -13,7 +13,7 @@ interface MarkdownEditorProps {
 }
 
 export default function MarkdownEditor({ content, onChange, onDownload }: MarkdownEditorProps) {
-  const [activeTab, setActiveTab] = useState<'edit' | 'preview'>('edit');
+  const [activeTab, setActiveTab] = useState<'edit' | 'preview'>('preview');
   const [copied, setCopied] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 

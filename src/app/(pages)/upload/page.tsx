@@ -7,6 +7,7 @@ import MarkdownEditor from '@/components/MarkdownEditor';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import History from '@/components/History';
 import HistoryList from '@/components/HistoryList';
+import AnimatedDots from '@/components/AnimatedDots';
 import { PDFParser } from '@/lib/pdf-parser';
 import { AIService } from '@/lib/ai-service';
 import { HistoryService, HistoryItem } from '@/lib/history-service';
@@ -242,17 +243,21 @@ export default function Home() {
             </h3>
             <p className="text-gray-600 dark:text-gray-400 mb-8">
               {processingPercentage < 40 ? 
-                "Extracting content from your CV..." : 
+                "Extracting content from your CV" : 
                 processingPercentage < 95 ? 
-                  "Our AI is analyzing your CV and generating a beautiful README file..." : 
-                  "Finalizing your README file..."}
+                  "Our AI is analyzing your CV and generating a beautiful README file" : 
+                  "Finalizing your README file"}
+              <AnimatedDots />
+            </p>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
+              This may take 1-2 minutes
             </p>
             <div className="flex flex-col items-center justify-center">
               <LoadingSpinner 
                 size="lg" 
-                text={`Processing your CV${processingPercentage < 100 ? '...' : ' - Complete!'}`}
+                text={`Processing your CV${processingPercentage < 100 ? '' : ' - Complete!'}`}
                 percentage={Math.round(processingPercentage)} 
-                showPercentage={true} 
+                showPercentage={true}
               />
             </div>
           </div>

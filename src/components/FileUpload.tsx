@@ -4,6 +4,7 @@ import { useCallback, useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Upload, FileText, X, CheckCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import AnimatedDots from './AnimatedDots';
 
 interface FileUploadProps {
   onFileSelect: (file: File) => void;
@@ -109,6 +110,14 @@ export default function FileUpload({ onFileSelect, onFileRemove, selectedFile, i
             >
               <X className="w-5 h-5 text-gray-500 dark:text-gray-400" />
             </button>
+          )}
+          {isLoading && (
+            <div className="text-sm text-blue-600 dark:text-blue-400 font-medium">
+              Processing<AnimatedDots />
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                This may take 1-2 minutes
+              </p>
+            </div>
           )}
         </div>
       </motion.div>

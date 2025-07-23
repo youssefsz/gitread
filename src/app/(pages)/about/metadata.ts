@@ -13,7 +13,11 @@ export const metadata: Metadata = {
     'about GitRead',
     'resume parser',
     'portfolio generator',
-    'developer productivity tools'
+    'developer productivity tools',
+    'github readme profile generator',
+    'github profile generator',
+    'readme profile maker',
+    'github bio generator'
   ],
   openGraph: {
     title: 'About GitRead - AI-Powered CV to README Generator',

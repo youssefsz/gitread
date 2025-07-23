@@ -1,5 +1,6 @@
 import { CheckCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import AnimatedDots from './AnimatedDots';
 
 interface LoadingSpinnerProps {
   size?: 'sm' | 'md' | 'lg';
@@ -92,7 +93,13 @@ export default function LoadingSpinner({ size = 'md', text, percentage = 0, show
       {/* Text below the circle */}
       {text && (
         <span className="text-gray-600 dark:text-gray-400 text-sm font-medium text-center">
-          {text}
+          {text.includes('Processing your CV') && !isComplete ? (
+            <>
+              Processing your CV<AnimatedDots />
+            </>
+          ) : (
+            text
+          )}
         </span>
       )}
       

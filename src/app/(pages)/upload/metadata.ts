@@ -17,7 +17,12 @@ export const metadata: Metadata = {
     'resume enhancement',
     'GitHub profile optimization',
     'drag and drop CV',
-    'instant README creation'
+    'instant README creation',
+    'github readme profile generator',
+    'github profile generator',
+    'readme profile maker',
+    'github bio generator',
+    'github about me generator'
   ],
   openGraph: {
     title: 'Upload Your CV - GitRead AI README Generator',

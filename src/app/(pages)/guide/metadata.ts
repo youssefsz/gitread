@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Step-by-Step Guide | GitRead',
   description: 'Learn how to transform your CV into a professional GitHub README profile with our comprehensive step-by-step guide. Upload, edit, and publish your GitHub profile in minutes.',
-  keywords: ['GitHub README', 'CV to GitHub', 'profile README', 'GitHub profile', 'markdown guide', 'GitHub repository', 'professional profile'],
+  keywords: ['GitHub README', 'CV to GitHub README', 'profile README', 'GitHub profile', 'markdown guide', 'github readme profile generator', 'github profile generator', 'readme profile maker', 'github readme generator'],
   openGraph: {
     title: 'Step-by-Step Guide | GitRead',
     description: 'Learn how to transform your CV into a professional GitHub README profile with our comprehensive step-by-step guide.',

@@ -32,7 +32,9 @@ export const metadata: Metadata = {
     "professional portfolio", "developer tools", "resume to README", "GitHub profile", 
     "markdown generator", "CV parser", "AI-powered tools", "developer portfolio", 
     "README template", "GitHub optimization", "career tools", "tech resume", 
-    "upload CV", "CV upload tool", "drag and drop resume", "instant README creation"
+    "upload CV", "CV upload tool", "drag and drop resume", "instant README creation",
+    "github readme profile generator", "github profile readme", "github profile generator",
+    "readme profile maker", "github bio generator", "github about me generator"
   ],
   authors: [{ name: "GitRead", url: "https://gitread.youssef.tn" }],
   creator: "GitRead",
