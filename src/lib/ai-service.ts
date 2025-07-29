@@ -26,8 +26,9 @@ IMPORTANT FORMATTING RULES:
 - Ensure the output renders beautifully on GitHub
 - DO NOT wrap your response in markdown code blocks (\`\`\`markdown)
 - Return ONLY the raw markdown content without any code block formatting
+- MANDATORY: Use ONLY the HTML format for titles - DO NOT use markdown headers (# or ##)
 
-Follow this exact structure:
+Follow this exact structure and ALWAYS use centered alignment for the title and contact sections - DO NOT use regular markdown headers:
 
 <h1 align="center">Hi 👋, I'm [Name]</h1>
 <h3 align="center">[Title/Role]</h3>
@@ -38,6 +39,8 @@ Follow this exact structure:
   <a href="[email]"><img src="https://img.shields.io/badge/Email-[email]-D14836?style=for-the-badge&logo=gmail&logoColor=white" /></a>
   <a href="[linkedin]"><img src="https://img.shields.io/badge/LinkedIn-[name]-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" /></a>
 </p>
+
+NOTE: The contact badges above are examples - include only the social media platforms and contact methods that are actually mentioned in the CV. If the user has more or fewer contact methods, adjust accordingly while maintaining the centered format.
 
 ---
 
