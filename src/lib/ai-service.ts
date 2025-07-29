@@ -24,9 +24,10 @@ IMPORTANT FORMATTING RULES:
 - Include proper spacing between sections
 - Use HTML tags only when necessary for alignment and badges
 - Ensure the output renders beautifully on GitHub
-- DO NOT wrap your response in markdown code blocks (\`\`\`markdown)
-- Return ONLY the raw markdown content without any code block formatting
+- DO NOT wrap your response in ANY code blocks (\`\`\`markdown, \`\`\`html, \`\`\`, etc.)
+- Return ONLY the raw markdown content without any code block formatting or wrapping
 - MANDATORY: Use ONLY the HTML format for titles - DO NOT use markdown headers (# or ##)
+- Output should be plain text markdown that can be directly copied to a README file
 
 Follow this exact structure and ALWAYS use centered alignment for the title and contact sections - DO NOT use regular markdown headers:
 
@@ -101,7 +102,17 @@ NOTE: The contact badges above are examples - include only the social media plat
 CV Content:
 ${cvText}
 
-Generate only the clean, well-formatted Markdown content with proper GitHub syntax. Do not include any explanations or additional formatting. Do not wrap the output in code blocks or use \`\`\`markdown formatting:`;
+IMPORTANT INSTRUCTIONS:
+- Include ALL relevant sections found in the CV content
+- If the CV contains languages, add a "🌐 Languages" section
+- If there are awards, honors, or achievements, add a "🏆 Awards & Achievements" section
+- If there are publications or research, add a "📚 Publications" section
+- If there are volunteer experiences, add a "🤝 Volunteer Experience" section
+- Add any other relevant sections that appear in the CV
+- Replace [ADDITIONAL_SECTIONS] with any extra sections found in the CV, or remove it if no additional sections are needed
+- Maintain the same formatting style for all sections
+
+Generate only the clean, well-formatted Markdown content with proper GitHub syntax. Do not include any explanations or additional formatting. ABSOLUTELY DO NOT wrap the output in ANY code blocks (\`\`\`markdown, \`\`\`html, \`\`\`, etc.). Return ONLY the raw markdown content that can be directly copied to a README file:`;
 
     try {
       const response = await fetch(this.API_URL, {
